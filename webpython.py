@@ -1,10 +1,18 @@
 from flask import Flask, request
+import requests
 
 app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def hello():
     return "Olá, mundo!"
+
+
+@app.route('/cep/<cep>', methods=['GET'])
+def getCep(cep):
+    url = "https://viacep.com.br/ws/"+ cep +"/json/";
+    response = requests.get(url)
+    return response.text
 
 @app.route('/soma', methods=['POST'])
 def soma():
